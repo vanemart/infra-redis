@@ -1,0 +1,41 @@
+name: Deploy Redis Infra
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write 
+      contents: read  
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: sa-east-1
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Deploy Redis CloudFormation
+        run: |
+          STACK_NAME="redis-stack"
+          TEMPLATE_FILE="templates/redis.yaml"
+          PARAMETERS_FILE="config/parameters.json"
+
+          aws cloudformation deploy \
+            --stack-name $STACK_NAME \
+            --template-file $TEMPLATE_FILE \
+            --parameter-overrides $(jq -r '.[] | "\(.ParameterKey)=\(.ParameterValue)"' $PARAMETERS_FILE) \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --region sa-east-1 \
+            --debug
+

@@ -1,0 +1,33 @@
+# Configurações locais e credenciais
+*.env
+*.aws/credentials
+*.aws/config
+config/parameters.json       # se contiver valores sensíveis
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Diretórios de build ou cache (caso use scripts que geram artifacts)
+build/
+dist/
+tmp/
+
+# Node modules, caso use Node.js para scripts ou pipelines
+node_modules/
+
+# Python cache, caso use scripts Python
+__pycache__/
+*.pyc
+
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# GitHub Actions cache (opcional)
+.github/workflows/cache/
