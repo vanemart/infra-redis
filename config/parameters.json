@@ -1,11 +1,11 @@
 [
   {
     "ParameterKey": "VpcId",
-    "ParameterValue": "vpc-0f6bfad98865c7087"
+    "ParameterValue": "vpc-0bda818f02bb681db"
   },
   {
     "ParameterKey": "SubnetIds",
-    "ParameterValue": "subnet-04942a4fb993d01a4"
+    "ParameterValue": "subnet-061e6321b21a7fd4c"
   },
   {
     "ParameterKey": "RedisNodeType",
